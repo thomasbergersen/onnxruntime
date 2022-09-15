@@ -142,7 +142,7 @@ __device__ inline void LayerNormVec(
       }
       *gamma_val = *reinterpret_cast<const VecT*>(&gamma[i]);
       *output_val = *reinterpret_cast<const VecT*>(&output[idx]);
-#pragma unroll
+      #pragma unroll
       for (int k = 0; k < ILP; k++) {
         output_v[k] = (beta != nullptr) ? gamma_v[k] * (output_v[k] - mu) * rsigma + beta_v[k] :
                                           gamma_v[k] * (output_v[k] - mu) * rsigma;

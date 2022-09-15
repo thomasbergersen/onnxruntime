@@ -76,7 +76,7 @@ __global__ void SkipLayerNormKernelVec(
 
       T rldval_sum = T(0.f);
       T rldvalsq_sum = T(0.f);
-#pragma unroll
+      #pragma unroll
       for (int k = 0; k < ILP; k++) {
         input_v[k] += hasBias ? skip_v[k] + bias_v[k] : skip_v[k];
         const T rldval = reverse_ld * input_v[k];

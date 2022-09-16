@@ -629,11 +629,11 @@ stages:
       - template: py-linux-ubuntu.yml
         parameters:
           arch: 'x86_64'
-          machine_pool: 'Azure-Pipelines-EO-Ubuntu-2004-aiinfra'
+          machine_pool: 'Linux-CPU'
           base_image: 'ubuntu:18.04'
 
   - ${{ if eq(parameters.enable_linux_gpu, true) }}:
       - template: py-linux-gpu.yml
         parameters:
           arch: 'x86_64'
-          machine_pool: 'Azure-Pipelines-EO-Ubuntu-2004-aiinfra'
+          machine_pool: 'Linux-CPU'

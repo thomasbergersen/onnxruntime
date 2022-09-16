@@ -156,8 +156,6 @@ CMD ["/bin/bash"]
 
 #Build manylinux2014 docker image end
 
-ENV PATH /usr/local/gradle/bin:/opt/rh/devtoolset-11/root/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
 ADD scripts /tmp/scripts
 RUN cd /tmp/scripts && /tmp/scripts/install_centos.sh && /tmp/scripts/install_deps.sh && rm -rf /tmp/scripts
 

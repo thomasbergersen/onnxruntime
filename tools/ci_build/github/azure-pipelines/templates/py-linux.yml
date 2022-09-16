@@ -8,6 +8,15 @@ parameters:
 - name: base_image
   type: string
 
+- name: devtoolset_rootpath
+  type: string
+
+- name: ld_library_path_arg
+  type: string
+
+- name: prepend_path
+  type: string
+
 jobs:
 - job: Linux_py_Wheels_${{ parameters.arch }}
   timeoutInMinutes: 240

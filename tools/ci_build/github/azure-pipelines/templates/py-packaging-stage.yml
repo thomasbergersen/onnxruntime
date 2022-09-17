@@ -262,7 +262,7 @@ stages:
       pool: 'onnxruntime-gpu-winbuild'
       timeoutInMinutes:  300
       variables:
-        CUDA_VERSION: '11.4'
+        CUDA_VERSION: '11.6'
         buildArch: x64
       strategy:
         matrix:

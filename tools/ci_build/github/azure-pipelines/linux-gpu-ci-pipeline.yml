@@ -122,7 +122,7 @@ jobs:
               --build_shared_lib \
               --parallel \
               --build_wheel \
-              --enable_onnx_tests --use_cuda --cuda_version=11.4 --cuda_home=/usr/local/cuda-11.6 --cudnn_home=/usr/local/cuda-11.6 \
+              --enable_onnx_tests --use_cuda --cuda_version=11.6 --cuda_home=/usr/local/cuda-11.6 --cudnn_home=/usr/local/cuda-11.6 \
               --enable_pybind --build_java --ctest_path ''
 
   - template: templates/clean-agent-build-directory-step.yml

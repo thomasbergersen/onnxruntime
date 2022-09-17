@@ -486,7 +486,7 @@ void BasicBackend::CompleteAsyncInference(Ort::KernelContext& context, OVInferRe
     } else {
       auto precision = output_info_iter->second->getPrecision();
       size_t batch_slice = 0;
-      FillOutputBlob(graph_output_blob, *output_tensor, ort, precision, batch_slice);
+      FillOutputBlob(graph_output_blob, *output_tensor, precision, batch_slice);
     }
   }
   #endif
@@ -537,15 +537,15 @@ void BasicBackend::Infer(OrtKernelContext* ctx) {
       if ((global_context_.device_type.find("GPU") != std::string::npos)  && 
           (global_context_.context != nullptr) && 
           (openvino_ep::BackendManager::GetGlobalContext().is_wholly_supported_graph)) {
-        StartRemoteAsyncInference(ort, context, infer_request);
+        StartRemoteAsyncInference(context, infer_request);
       } else {
-        StartAsyncInference(ort, context, infer_request);
+        StartAsyncInference(context, infer_request);
       }
       #else 
-        StartAsyncInference(ort, context, infer_request);
+        StartAsyncInference(context, infer_request);
       #endif 
 
-      CompleteAsyncInference(ort, context, infer_request);
+      CompleteAsyncInference(context, infer_request);
   
       // Get Output tensors
       LOGS_DEFAULT(INFO) << log_tag << "Inference successful";

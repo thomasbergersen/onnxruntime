@@ -192,7 +192,7 @@ void VADMBackend::CompleteAsyncInference(Ort::KernelContext& context,
     for (auto item : const_outputs_map_) {
       auto out_name = item.first;
       auto node = item.second;
-      auto output_tensor = GetOutputTensor(ort, context, out_name, subgraph_context_.output_names, node);
+      auto output_tensor = GetOutputTensor(context, out_name, subgraph_context_.output_names, node);
       FillOutputsWithConstantData(node, *output_tensor);
     }
   }

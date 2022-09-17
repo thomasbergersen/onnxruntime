@@ -74,7 +74,7 @@ void FillInputBlob(OVTensorPtr inputBlob, size_t batch_slice_idx,
                    std::string input_name, Ort::KernelContext& context,
                    const SubGraphContext& subgraph_context);
 
-void FillOutputBlob(OVTensorPtr outputBlob, Ort::Unowned<Ort::Value>& output_tensor,
+void FillOutputBlob(OVTensorPtr outputBlob, Ort::Value& output_tensor,
                     size_t batch_slice_idx);
 
 std::shared_ptr<OVNetwork>

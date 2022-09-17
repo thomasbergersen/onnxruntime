@@ -214,9 +214,9 @@ static Status GetOutputBuffer(Ort::KernelContext& context,
   std::vector<int64_t> int64_output_shape(output_shape.begin(),
                                           output_shape.end());
   auto output_idx = model.GetMappedOutputIdx(output_name);
-  auto output_tensor = ctx.GetOutput(output_idx,
-                                     int64_output_shape.data(),
-                                     int64_output_shape.size());
+  auto output_tensor = context.GetOutput(output_idx,
+                                         int64_output_shape.data(),
+                                         int64_output_shape.size());
 
   switch (output_type) {
     case Type::TENSOR_FLOAT32:

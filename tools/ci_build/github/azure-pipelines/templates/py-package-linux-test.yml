@@ -56,7 +56,8 @@ jobs:
     displayName: 'Bash Script'
     inputs:
       targetType: filePath
-      filePath: tools/ci_build/github/linux/run_python_tests.sh -d ${{ parameters.device }}
+      filePath: tools/ci_build/github/linux/run_python_tests.sh
+      arguments: -d ${{ parameters.device }}
 
   - task: mspremier.PostBuildCleanup.PostBuildCleanup-task.PostBuildCleanup@3
     displayName: 'Clean Agent Directories'

@@ -1,11 +1,19 @@
 parameters:
 - name: arch
   type: string
+- name: device
+  type: string
 - name: machine_pool
   type: string
+- name: extra_job_id
+  type: string
+  default: ''
+- name: python_wheel_suffix
+  type: string
+  default: ''
 
 jobs:
-- job: Linux_Test_${{ parameters.arch }}
+- job: Linux_Test_${{ parameters.device }}${{ parameters.extra_job_id }}_${{ parameters.arch }}
   timeoutInMinutes: 60
   variables:
     skipComponentGovernanceDetection: true
@@ -17,50 +25,34 @@ jobs:
     displayName: 'Download Pipeline Artifact'
     inputs:
       preferTriggeringPipeline: true      
-      artifactName: 'drop-linux-cpu-${{ parameters.arch }}'
+      artifactName: 'drop-linux-${{ lower(parameters.device) }}-${{ parameters.arch }}'
       targetPath: '$(Build.BinariesDirectory)/Release'
       #runVersion: 'latest'
       buildType: specific
       project: '530acbc4-21bc-487d-8cd8-348ff451d2ff'
       definition: 841
       buildVersionToDownload: specific
-      pipelineId: 228650
+      pipelineId: 229163
     
   - task: DownloadPipelineArtifact@2
     displayName: 'Download Pipeline Artifact'
     inputs:
       preferTriggeringPipeline: true
-      artifactName: 'onnxruntime'
+      artifactName: 'onnxruntime${{ parameters.python_wheel_suffix }}'
       targetPath: '$(Build.BinariesDirectory)/whl'
       #runVersion: 'latest'
       buildType: specific
       project: '530acbc4-21bc-487d-8cd8-348ff451d2ff'
       definition: 841
       buildVersionToDownload: specific
-      pipelineId: 228650
+      pipelineId: 229163
 
 
   - task: Bash@3
     displayName: 'Bash Script'
     inputs:
       targetType: filePath
-      filePath: tools/ci_build/github/linux/run_python_tests.sh
-
-
-  - task: PowerShell@2
-    displayName: 'Add Build Tag'
-    #Run this step only if all previous steps are succeeded and (this build was triggered by a resource trigger or it was triggered by another build).
-    condition: and(succeeded(), eq(variables['Build.Reason'], 'ResourceTrigger'))
-    env:
-      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-    inputs:
-      targetType: inline
-      script: |
-        $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
-        $headers.Add("Authorization", "Bearer $env:SYSTEM_ACCESSTOKEN")
-        $headers.Add("Content-Type", "application/json")
-        $uri = "https://dev.azure.com/aiinfra/Lotus/_apis/build/builds/$(resources.pipeline.build.runID)/tags/test%20pass?api-version=6.0"
-        Invoke-RestMethod -Uri $uri -Headers $headers -Method PUT
+      filePath: tools/ci_build/github/linux/run_python_tests.sh -d ${{ parameters.device }}
 
   - task: mspremier.PostBuildCleanup.PostBuildCleanup-task.PostBuildCleanup@3
     displayName: 'Clean Agent Directories'

@@ -5,20 +5,37 @@ resources:
     trigger: true 
     
 jobs:
-- template: templates/py-package-test.yml
+- template: templates/py-package-linux-test.yml
   parameters:
     arch: 'x86_64'
     machine_pool: 'Linux-CPU'
+    device: 'CPU'
 
-- template: templates/py-package-test.yml
-  parameters:
+- template: templates/py-package-linux-test.yml
     arch: 'aarch64'
     machine_pool: 'aiinfra-linux-ARM64-CPU-2019'
+    device: 'CPU'
+
+- template: templates/py-package-linux-test.yml
+  parameters:
+    arch: 'x86_64'
+    machine_pool: 'Onnxruntime-Linux-GPU'
+    device: 'GPU'
+    python_wheel_suffix: '_gpu'
+
+- template: templates/py-package-linux-test.yml
+  parameters:
+    arch: 'x86_64'
+    machine_pool: 'Onnxruntime-Linux-GPU-NV6'
+    device: 'GPU'
+    extra_job_id: 'NV6'
+    python_wheel_suffix: '_gpu'
 
 - job: Final
   dependsOn:
-  - Linux_Test_x86_64
-  - Linux_Test_aarch64
+  - Linux_Test_CPU_x86_64
+  - Linux_Test_CPU_aarch64
+  - Linux_Test_GPU_x86_64
   #Run this step only if all previous steps are succeeded and (this build was triggered by a resource trigger or it was triggered by another build).
   condition: and(succeeded(), eq(variables['Build.Reason'], 'ResourceTrigger'))
   timeoutInMinutes: 60

@@ -18,7 +18,7 @@ parameters:
 
 jobs:
 - job: Linux_Test_${{ parameters.device }}${{ parameters.extra_job_id }}_${{ parameters.arch }}
-  timeoutInMinutes: 60
+  timeoutInMinutes: 120
   variables:
     skipComponentGovernanceDetection: true
   workspace:

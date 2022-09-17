@@ -1,13 +1,17 @@
 parameters:
 - name: arch
   type: string
+
 - name: device
   type: string
+
 - name: machine_pool
   type: string
+
 - name: extra_job_id
   type: string
   default: ''
+
 - name: python_wheel_suffix
   type: string
   default: ''

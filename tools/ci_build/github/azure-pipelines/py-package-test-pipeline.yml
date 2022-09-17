@@ -12,6 +12,7 @@ jobs:
     device: 'CPU'
 
 - template: templates/py-package-linux-test.yml
+  parameters:
     arch: 'aarch64'
     machine_pool: 'aiinfra-linux-ARM64-CPU-2019'
     device: 'CPU'

@@ -31,12 +31,10 @@ jobs:
       preferTriggeringPipeline: true      
       artifactName: 'drop-linux-${{ lower(parameters.device) }}-${{ parameters.arch }}'
       targetPath: '$(Build.BinariesDirectory)/Release'
-      #runVersion: 'latest'
+      runVersion: 'latest'
       buildType: specific
       project: '530acbc4-21bc-487d-8cd8-348ff451d2ff'
       definition: 841
-      buildVersionToDownload: specific
-      pipelineId: 229163
     
   - task: DownloadPipelineArtifact@2
     displayName: 'Download Pipeline Artifact'
@@ -44,12 +42,10 @@ jobs:
       preferTriggeringPipeline: true
       artifactName: 'onnxruntime${{ parameters.python_wheel_suffix }}'
       targetPath: '$(Build.BinariesDirectory)/whl'
-      #runVersion: 'latest'
+      runVersion: 'latest'
       buildType: specific
       project: '530acbc4-21bc-487d-8cd8-348ff451d2ff'
       definition: 841
-      buildVersionToDownload: specific
-      pipelineId: 229163
 
 
   - task: Bash@3

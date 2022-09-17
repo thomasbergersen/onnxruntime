@@ -29,7 +29,7 @@ jobs:
     arch: 'x86_64'
     machine_pool: 'Onnxruntime-Linux-GPU-NV6'
     device: 'GPU'
-    extra_job_id: 'NV6'
+    extra_job_id: '_NV6'
     python_wheel_suffix: '_gpu'
 
 - job: Final
@@ -37,6 +37,7 @@ jobs:
   - Linux_Test_CPU_x86_64
   - Linux_Test_CPU_aarch64
   - Linux_Test_GPU_x86_64
+  - Linux_Test_GPU_NV6_x86_64
   #Run this step only if all previous steps are succeeded and (this build was triggered by a resource trigger or it was triggered by another build).
   condition: and(succeeded(), eq(variables['Build.Reason'], 'ResourceTrigger'))
   timeoutInMinutes: 60
